@@ -262,3 +262,18 @@ use_ostream(storage::PartitionSlot);
 using namespace storage;
 
 %include "storage-template.i"
+
+#ifdef SWIGRUBY
+%wrapper %{
+namespace swig {
+  template <> struct traits<storage::Devicegraph> {
+    typedef pointer_category category;
+    static const char* type_name() { return "storage::Devicegraph"; }
+  };
+  template <> struct traits<storage::Pool> {
+    typedef pointer_category category;
+    static const char* type_name() { return "storage::Pool"; }
+  };
+}
+%}
+#endif
